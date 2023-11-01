@@ -73,10 +73,10 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 
 # nvm custom plugin
 export NVM_AUTO_USE=true
-git clone https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-nvm
+if [ ! -f "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-nvm" ]; then git clone --quiet https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-nvm; fi
 
 # pnpm custom plugin
-git clone --depth=1 https://github.com/ntnyq/omz-plugin-pnpm.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/pnpm
+if [ ! -f "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/pnpm" ]; then git clone --quiet --depth=1 https://github.com/ntnyq/omz-plugin-pnpm.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/pnpm; fi
 
 plugins=(git docker gcloud yarn pnpm zsh-nvm)
 
@@ -107,14 +107,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 alias zshconfig="code ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# pnpm
-export PNPM_HOME="/Users/mitch/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# setup thefuck
-eval "$(thefuck --alias)"
